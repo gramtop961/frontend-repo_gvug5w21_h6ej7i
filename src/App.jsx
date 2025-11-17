@@ -1,25 +1,30 @@
 import { useState } from 'react'
+import Hero from './components/Hero'
+import Onboarding from './components/Onboarding'
+import Mantra from './components/Mantra'
+import Journal from './components/Journal'
+import Oracle from './components/Oracle'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [profile, setProfile] = useState(null)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
+    <div className="min-h-screen bg-gradient-to-b from-[#0f1226] via-[#1b1f3b] to-[#4a3f35] text-white">
+      <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+        {!profile ? (
+          <>
+            <Hero onStart={() => {}} />
+            <Onboarding onComplete={setProfile} />
+          </>
+        ) : (
+          <>
+            <div className="grid gap-6 md:grid-cols-2">
+              <Mantra profile={profile} />
+              <Journal email={profile.email} />
+            </div>
+            <Oracle email={profile.email} />
+          </>
+        )}
       </div>
     </div>
   )
